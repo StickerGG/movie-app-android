@@ -17,6 +17,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.tvRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
@@ -33,10 +37,12 @@ class LoginActivity : AppCompatActivity() {
 
         if (login == savedLogin && password == savedPassword) {
 
-            // ✅ зберігаємо авторизацію
             sharedPref.edit().putBoolean("isAuthorized", true).apply()
 
             Toast.makeText(this, "Вхід успішний", Toast.LENGTH_SHORT).show()
+
+            startActivity(Intent(this, MenuActivity::class.java))
+            finish()
 
         } else {
             Toast.makeText(this, "Невірний логін або пароль", Toast.LENGTH_SHORT).show()
